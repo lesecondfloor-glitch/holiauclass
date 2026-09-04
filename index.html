@@ -583,7 +583,7 @@
       <!-- Email -->
       <div class="card" data-q="e1">
         <div class="q-title">電子郵件<span class="req">*</span></div>
-        <input type="email" name="email" placeholder="your@email.com">
+        <input type="email" name="emailAddress" placeholder="your@email.com">
         <div class="error-msg">請填寫電子郵件</div>
       </div>
 
@@ -854,7 +854,7 @@
     <p>我們收到您的報名資料了 🧡<br>
     對帳完成後會用 email 通知您。<br>
     有任何問題請加入官方 LINE 詢問。<br><br>
-    期待與您和孩子一起學台羅！</p>
+    期待與您和孩子一起學台羅吃好料！</p>
   </div>
 
 </div>
@@ -988,33 +988,43 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '送出中⋯⋯';
 
-    // Build Google Form submission
+    // Build Google Form submission - 掃描全頁面所有欄位
     const gForm = document.createElement('form');
     gForm.action = FORM_ACTION;
     gForm.method = 'POST';
     gForm.target = 'hidden_iframe';
     gForm.style.display = 'none';
 
-    // Page 1 data
-    Object.entries(page1Data).forEach(([name, value]) => {
-      if (name !== 'email') {
+    // 所有 radio（form1 + form2 + form 外）
+    document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      if (el.name && el.value.trim()) {
         const h = document.createElement('input');
-        h.type = 'hidden'; h.name = name; h.value = value;
+        h.type = 'hidden'; h.name = el.name; h.value = el.value;
         gForm.appendChild(h);
       }
     });
 
-    // 你OK我OK（在 form 外）
-    const okInput = document.querySelector('input[name="entry.637709241"]:checked');
-    if (okInput) {
-      const h = document.createElement('input');
-      h.type = 'hidden'; h.name = 'entry.637709241'; h.value = okInput.value;
-      gForm.appendChild(h);
-    }
+    // 所有 text / email 輸入
+    document.querySelectorAll('input[type="text"], input[type="email"]').forEach(el => {
+      if (el.name && el.value.trim()) {
+        const h = document.createElement('input');
+        h.type = 'hidden'; h.name = el.name; h.value = el.value;
+        gForm.appendChild(h);
+      }
+    });
 
-    // Page 2 data
-    document.querySelectorAll('#form2 input[type="radio"]:checked, #form2 input[type="text"], #form2 input[type="date"], #form2 textarea').forEach(el => {
-      if (el.value.trim()) {
+    // 日期欄位
+    document.querySelectorAll('input[type="date"]').forEach(el => {
+      if (el.name && el.value.trim()) {
+        const h = document.createElement('input');
+        h.type = 'hidden'; h.name = el.name; h.value = el.value;
+        gForm.appendChild(h);
+      }
+    });
+
+    // Textarea
+    document.querySelectorAll('textarea').forEach(el => {
+      if (el.name && el.value.trim()) {
         const h = document.createElement('input');
         h.type = 'hidden'; h.name = el.name; h.value = el.value;
         gForm.appendChild(h);
