@@ -940,17 +940,24 @@
   }
 
   function updateProgress() {
-    const cards2 = document.querySelectorAll('#page2 .card[data-q]');
-    let f2 = 0;
-    cards2.forEach(c => { if (isCardFilled(c)) f2++; });
-    document.getElementById('progressFill2').style.width = Math.round(f2 / cards2.length * 100) + '%';
-    document.getElementById('progressLabel2').textContent = f2 + ' / ' + cards2.length;
-
-    const cards3 = document.querySelectorAll('#page3 .card[data-q]');
-    let f3 = 0;
-    cards3.forEach(c => { if (isCardFilled(c)) f3++; });
-    document.getElementById('progressFill3').style.width = Math.round(f3 / cards3.length * 100) + '%';
-    document.getElementById('progressLabel3').textContent = f3 + ' / ' + cards3.length;
+    const pf2 = document.getElementById('progressFill2');
+    const pl2 = document.getElementById('progressLabel2');
+    if (pf2 && pl2) {
+      const cards2 = document.querySelectorAll('#page2 .card[data-q]');
+      let f2 = 0;
+      cards2.forEach(c => { if (isCardFilled(c)) f2++; });
+      pf2.style.width = Math.round(f2 / cards2.length * 100) + '%';
+      pl2.textContent = f2 + ' / ' + cards2.length;
+    }
+    const pf3 = document.getElementById('progressFill3');
+    const pl3 = document.getElementById('progressLabel3');
+    if (pf3 && pl3) {
+      const cards3 = document.querySelectorAll('#page3 .card[data-q]');
+      let f3 = 0;
+      cards3.forEach(c => { if (isCardFilled(c)) f3++; });
+      pf3.style.width = Math.round(f3 / cards3.length * 100) + '%';
+      pl3.textContent = f3 + ' / ' + cards3.length;
+    }
   }
 
   // ---- Page 1 → Page 2 ----
