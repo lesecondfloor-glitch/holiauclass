@@ -8,10 +8,10 @@
   :root {
     --bg: #FAF0EA;
     --paper: #FFFCF9;
-    --orange: #C85A2A;
-    --orange-light: #E07040;
-    --orange-pale: #FDE8DC;
-    --orange-deep: #9E3E18;
+    --orange: #d25638;
+    --orange-light: #e06a50;
+    --orange-pale: #fde8e4;
+    --orange-deep: #a83a22;
     --yellow: #F5C842;
     --brown: #3D1F0A;
     --brown-soft: #7A5540;
@@ -227,41 +227,44 @@
   .opt.selected .opt-dot::after { transform: scale(1); }
   .opt-text { font-size: 14px; color: var(--brown); line-height: 1.5; }
 
-  /* Scale (台語能力) - 圓形點選版 */
-  .scale-wrap { display: flex; gap: 10px; }
+  /* Scale (台語能力) - 直排 radio */
+  .scale-wrap { display: flex; flex-direction: column; gap: 9px; }
   .scale-btn {
-    flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 11px;
+    padding: 12px 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
     cursor: pointer;
+    background: #fff;
+    transition: border-color 0.18s, background 0.18s;
   }
+  .scale-btn:hover { border-color: var(--orange-light); background: var(--orange-pale); }
   .scale-btn input { position: absolute; opacity: 0; pointer-events: none; }
   .scale-circle-dot {
-    width: 36px;
-    height: 36px;
+    width: 19px;
+    height: 19px;
     border-radius: 50%;
-    border: 2px solid var(--line);
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--brown-soft);
-    transition: border-color 0.18s, background 0.18s, color 0.18s;
+    border: 2px solid #D8C0B0;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color 0.18s;
   }
-  .scale-btn:hover .scale-circle-dot { border-color: var(--orange-light); }
-  .scale-btn.selected .scale-circle-dot { border-color: var(--orange); background: var(--orange); color: #fff; }
-  .scale-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--brown-soft);
-    margin-top: 4px;
-    padding: 0 2px;
+  .scale-circle-dot::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--orange);
+    transform: scale(0);
+    transition: transform 0.18s;
   }
+  .scale-btn.selected { border-color: var(--orange); background: var(--orange-pale); }
+  .scale-btn.selected .scale-circle-dot { border-color: var(--orange); }
+  .scale-btn.selected .scale-circle-dot::after { transform: scale(1); }
+  .scale-labels { display: none; }
+  .scale-text { font-size: 14px; color: var(--brown); line-height: 1.5; }
 
   /* ---------- Course info ---------- */
   .course-block {
@@ -583,7 +586,7 @@
       <!-- Email -->
       <div class="card" data-q="e1">
         <div class="q-title">電子郵件<span class="req">*</span></div>
-        <input type="email" name="emailAddress" placeholder="your@email.com">
+        <input type="email" name="entry.696578148" placeholder="your@email.com">
         <div class="error-msg">請填寫電子郵件</div>
       </div>
 
@@ -664,11 +667,11 @@
         <div class="q-title">小孩的台語能力－聽<span class="req">*</span></div>
         <div class="q-sub">⭐ 1強～5弱</div>
         <div class="scale-wrap" data-name="entry.700828325" data-type="scale">
-          <label class="scale-btn" data-val="1"><input type="radio" name="entry.700828325" value="1"><span class="scale-circle-dot">1</span></label>
-          <label class="scale-btn" data-val="2"><input type="radio" name="entry.700828325" value="2"><span class="scale-circle-dot">2</span></label>
-          <label class="scale-btn" data-val="3"><input type="radio" name="entry.700828325" value="3"><span class="scale-circle-dot">3</span></label>
-          <label class="scale-btn" data-val="4"><input type="radio" name="entry.700828325" value="4"><span class="scale-circle-dot">4</span></label>
-          <label class="scale-btn" data-val="5"><input type="radio" name="entry.700828325" value="5"><span class="scale-circle-dot">5</span></label>
+          <label class="scale-btn" data-val="1"><input type="radio" name="entry.700828325" value="1"><span class="scale-circle-dot"></span><span class="scale-text">1</span></label>
+          <label class="scale-btn" data-val="2"><input type="radio" name="entry.700828325" value="2"><span class="scale-circle-dot"></span><span class="scale-text">2</span></label>
+          <label class="scale-btn" data-val="3"><input type="radio" name="entry.700828325" value="3"><span class="scale-circle-dot"></span><span class="scale-text">3</span></label>
+          <label class="scale-btn" data-val="4"><input type="radio" name="entry.700828325" value="4"><span class="scale-circle-dot"></span><span class="scale-text">4</span></label>
+          <label class="scale-btn" data-val="5"><input type="radio" name="entry.700828325" value="5 完全聽不懂，需家長協助，願意挑戰"><span class="scale-circle-dot"></span><span class="scale-text">5 完全聽不懂，需家長協助，願意挑戰</span></label>
         </div>
         <div class="scale-labels"><span>1 強</span><span>5 完全聽不懂，需家長協助，願意挑戰</span></div>
         <div class="error-msg">請給予評分</div>
@@ -679,11 +682,11 @@
         <div class="q-title">小孩的台語能力－講<span class="req">*</span></div>
         <div class="q-sub">⭐ 1強～5弱</div>
         <div class="scale-wrap" data-name="entry.784575573" data-type="scale">
-          <label class="scale-btn" data-val="1"><input type="radio" name="entry.784575573" value="1"><span class="scale-circle-dot">1</span></label>
-          <label class="scale-btn" data-val="2"><input type="radio" name="entry.784575573" value="2"><span class="scale-circle-dot">2</span></label>
-          <label class="scale-btn" data-val="3"><input type="radio" name="entry.784575573" value="3"><span class="scale-circle-dot">3</span></label>
-          <label class="scale-btn" data-val="4"><input type="radio" name="entry.784575573" value="4"><span class="scale-circle-dot">4</span></label>
-          <label class="scale-btn" data-val="5"><input type="radio" name="entry.784575573" value="5"><span class="scale-circle-dot">5</span></label>
+          <label class="scale-btn" data-val="1"><input type="radio" name="entry.784575573" value="1"><span class="scale-circle-dot"></span><span class="scale-text">1</span></label>
+          <label class="scale-btn" data-val="2"><input type="radio" name="entry.784575573" value="2"><span class="scale-circle-dot"></span><span class="scale-text">2</span></label>
+          <label class="scale-btn" data-val="3"><input type="radio" name="entry.784575573" value="3"><span class="scale-circle-dot"></span><span class="scale-text">3</span></label>
+          <label class="scale-btn" data-val="4"><input type="radio" name="entry.784575573" value="4"><span class="scale-circle-dot"></span><span class="scale-text">4</span></label>
+          <label class="scale-btn" data-val="5"><input type="radio" name="entry.784575573" value="5 活動期間，請盡量講台語，維護台語環境。"><span class="scale-circle-dot"></span><span class="scale-text">5 活動期間，請盡量講台語，維護台語環境。</span></label>
         </div>
         <div class="scale-labels"><span>1 強</span><span>5 活動期間，請盡量講台語，維護台語環境。</span></div>
         <div class="error-msg">請給予評分</div>
@@ -694,11 +697,11 @@
         <div class="q-title">小孩的台語能力－讀<span class="req">*</span></div>
         <div class="q-sub">⭐ 1強～5弱</div>
         <div class="scale-wrap" data-name="entry.1324139761" data-type="scale">
-          <label class="scale-btn" data-val="1"><input type="radio" name="entry.1324139761" value="1"><span class="scale-circle-dot">1</span></label>
-          <label class="scale-btn" data-val="2"><input type="radio" name="entry.1324139761" value="2"><span class="scale-circle-dot">2</span></label>
-          <label class="scale-btn" data-val="3"><input type="radio" name="entry.1324139761" value="3"><span class="scale-circle-dot">3</span></label>
-          <label class="scale-btn" data-val="4"><input type="radio" name="entry.1324139761" value="4"><span class="scale-circle-dot">4</span></label>
-          <label class="scale-btn" data-val="5"><input type="radio" name="entry.1324139761" value="5"><span class="scale-circle-dot">5</span></label>
+          <label class="scale-btn" data-val="1"><input type="radio" name="entry.1324139761" value="1"><span class="scale-circle-dot"></span><span class="scale-text">1</span></label>
+          <label class="scale-btn" data-val="2"><input type="radio" name="entry.1324139761" value="2"><span class="scale-circle-dot"></span><span class="scale-text">2</span></label>
+          <label class="scale-btn" data-val="3"><input type="radio" name="entry.1324139761" value="3"><span class="scale-circle-dot"></span><span class="scale-text">3</span></label>
+          <label class="scale-btn" data-val="4"><input type="radio" name="entry.1324139761" value="4"><span class="scale-circle-dot"></span><span class="scale-text">4</span></label>
+          <label class="scale-btn" data-val="5"><input type="radio" name="entry.1324139761" value="5 老師會教，一起來挑戰"><span class="scale-circle-dot"></span><span class="scale-text">5 老師會教，一起來挑戰</span></label>
         </div>
         <div class="scale-labels"><span>1 強</span><span>5 老師會教，一起來挑戰</span></div>
         <div class="error-msg">請給予評分</div>
@@ -709,11 +712,11 @@
         <div class="q-title">小孩的台語能力－寫<span class="req">*</span></div>
         <div class="q-sub">⭐ 1強～5弱</div>
         <div class="scale-wrap" data-name="entry.883715943" data-type="scale">
-          <label class="scale-btn" data-val="1"><input type="radio" name="entry.883715943" value="1"><span class="scale-circle-dot">1</span></label>
-          <label class="scale-btn" data-val="2"><input type="radio" name="entry.883715943" value="2"><span class="scale-circle-dot">2</span></label>
-          <label class="scale-btn" data-val="3"><input type="radio" name="entry.883715943" value="3"><span class="scale-circle-dot">3</span></label>
-          <label class="scale-btn" data-val="4"><input type="radio" name="entry.883715943" value="4"><span class="scale-circle-dot">4</span></label>
-          <label class="scale-btn" data-val="5"><input type="radio" name="entry.883715943" value="5"><span class="scale-circle-dot">5</span></label>
+          <label class="scale-btn" data-val="1"><input type="radio" name="entry.883715943" value="1"><span class="scale-circle-dot"></span><span class="scale-text">1</span></label>
+          <label class="scale-btn" data-val="2"><input type="radio" name="entry.883715943" value="2"><span class="scale-circle-dot"></span><span class="scale-text">2</span></label>
+          <label class="scale-btn" data-val="3"><input type="radio" name="entry.883715943" value="3"><span class="scale-circle-dot"></span><span class="scale-text">3</span></label>
+          <label class="scale-btn" data-val="4"><input type="radio" name="entry.883715943" value="4"><span class="scale-circle-dot"></span><span class="scale-text">4</span></label>
+          <label class="scale-btn" data-val="5"><input type="radio" name="entry.883715943" value="5 老師會教，一起來挑戰"><span class="scale-circle-dot"></span><span class="scale-text">5 老師會教，一起來挑戰</span></label>
         </div>
         <div class="scale-labels"><span>1 強</span><span>5 老師會教，一起來挑戰</span></div>
         <div class="error-msg">請給予評分</div>
@@ -847,7 +850,7 @@
   <!-- Success -->
   <div class="success-screen" id="successScreen">
     <svg class="success-icon" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="46" fill="#C85A2A"/>
+      <circle cx="50" cy="50" r="46" fill="#d25638"/>
       <path d="M30 52l14 14 26-30" stroke="#F5C842" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <h2>報名成功！感謝您！</h2>
@@ -865,8 +868,9 @@
 (function () {
   const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSdxTdoQC9T2cMSQEP2SPa1bbrzACCyyXkyTbMQ3Z7fLRNqv1Q/formResponse";
 
-  // 儲存第一頁資料
+  // 儲存第一頁、第二頁資料
   let page1Data = {};
+  let page2Data = {};
 
   // ---- Radio ----
   document.querySelectorAll('.options[data-type="radio"]').forEach(group => {
@@ -988,47 +992,33 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '送出中⋯⋯';
 
-    // Build Google Form submission - 掃描全頁面所有欄位
+    // 收集第二頁資料
+    page2Data = {};
+    document.querySelectorAll('#form2 input[type="radio"]:checked').forEach(el => {
+      if (el.name && el.value.trim()) page2Data[el.name] = el.value;
+    });
+    document.querySelectorAll('#form2 input[type="text"], #form2 input[type="date"], #form2 textarea').forEach(el => {
+      if (el.name && el.value.trim()) page2Data[el.name] = el.value;
+    });
+
+    // 收集 form 外的 radio（你OK我OK）
+    const okInput = document.querySelector('input[name="entry.637709241"]:checked');
+    if (okInput) page2Data['entry.637709241'] = okInput.value;
+
+    // Build Google Form submission
     const gForm = document.createElement('form');
     gForm.action = FORM_ACTION;
     gForm.method = 'POST';
     gForm.target = 'hidden_iframe';
     gForm.style.display = 'none';
 
-    // 所有 radio（form1 + form2 + form 外）
-    document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
-      if (el.name && el.value.trim()) {
-        const h = document.createElement('input');
-        h.type = 'hidden'; h.name = el.name; h.value = el.value;
-        gForm.appendChild(h);
-      }
-    });
-
-    // 所有 text / email 輸入
-    document.querySelectorAll('input[type="text"], input[type="email"]').forEach(el => {
-      if (el.name && el.value.trim()) {
-        const h = document.createElement('input');
-        h.type = 'hidden'; h.name = el.name; h.value = el.value;
-        gForm.appendChild(h);
-      }
-    });
-
-    // 日期欄位
-    document.querySelectorAll('input[type="date"]').forEach(el => {
-      if (el.name && el.value.trim()) {
-        const h = document.createElement('input');
-        h.type = 'hidden'; h.name = el.name; h.value = el.value;
-        gForm.appendChild(h);
-      }
-    });
-
-    // Textarea
-    document.querySelectorAll('textarea').forEach(el => {
-      if (el.name && el.value.trim()) {
-        const h = document.createElement('input');
-        h.type = 'hidden'; h.name = el.name; h.value = el.value;
-        gForm.appendChild(h);
-      }
+    // 合併第一頁 + 第二頁資料送出（跳過 emailAddress，那個進不了 Google）
+    const allData = { ...page1Data, ...page2Data };
+    Object.entries(allData).forEach(([name, value]) => {
+      if (name === 'emailAddress') return;
+      const h = document.createElement('input');
+      h.type = 'hidden'; h.name = name; h.value = value;
+      gForm.appendChild(h);
     });
 
     document.body.appendChild(gForm);
